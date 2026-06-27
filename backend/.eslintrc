@@ -1,0 +1,16 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    // Permitir el uso de _id
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+
+    // Permitir console.log
+    "no-console": "off",
+
+    // Configuración de saltos de línea (linebreaks)
+    "linebreak-style": ["error", "unix"], // o "windows" según tu sistema
+
+    // Desactiva  la regla no-unused-vars para producir un error por parte de ESLint.
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+  },
+}

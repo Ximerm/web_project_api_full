@@ -1,0 +1,38 @@
+.footer {
+  max-width: 36.14%;
+  padding-top: 67px;
+}
+
+.footer__copyright {
+  color: #545454;
+}
+
+@media (min-width: 501px) and (max-width: 768px) {
+  .footer {
+    padding-top: 57px;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 768px) {
+  .footer {
+    max-width: 40%;
+    padding-top: 47px;
+  }
+
+  .footer__copyright {
+    font-size: 16px;
+    line-height: 18.94px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 500px) {
+  .footer {
+    max-width: 282px;
+    padding-top: 50px;
+  }
+
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 16.94px;
+  }
+}

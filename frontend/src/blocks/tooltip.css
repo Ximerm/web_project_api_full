@@ -1,0 +1,126 @@
+.tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+}
+
+.tooltip_opened {
+  display: flex;
+}
+
+.tooltip__container {
+  position: relative;
+
+  width: 430px;
+  height: 330px;
+
+  margin-top: 195px;
+
+  background: #ffffff;
+  border-radius: 10px;
+
+  padding: 60px 36px 36px;
+  box-sizing: border-box;
+
+  text-align: center;
+}
+
+.tooltip__icon_success {
+  width: 120px;
+  height: 120px;
+
+  margin: 0 auto 32px;
+
+  background: url("../images/Tooltip/Succes-icon.png") center/cover no-repeat;
+}
+
+.tooltip__icon_fail {
+  width: 120px;
+  height: 120px;
+
+  margin: 0 auto 32px;
+
+  background: url("../images/Tooltip/Fail-icon.png") center/cover no-repeat;
+}
+
+.tooltip__message {
+  margin: 0;
+
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: #000000;
+  max-width: 358px;
+}
+
+.tooltip__close {
+  position: absolute;
+
+  top: -40px;
+  right: -40px;
+
+  width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+}
+
+.tooltip__close:hover {
+  opacity: 0.6;
+}
+
+@media (min-width: 320px) and (max-width: 500px) {
+  .tooltip {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .tooltip__container {
+    width: 280px;
+    height: 308px;
+
+    margin-top: 123px;
+    padding: 50px 18px 36px;
+    box-sizing: border-box;
+  }
+
+  .tooltip__close {
+    width: 30px;
+    height: 30px;
+
+    top: -40px;
+    left: 50%;
+    right: auto;
+
+    transform: translateX(-50%);
+  }
+}
+
+.tooltip__container {
+  width: 280px;
+  height: 308px;
+
+  margin-top: 123px;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 50px 18px 36px;
+  box-sizing: border-box;
+}
+
+.tooltip__close {
+  width: 30px;
+  height: 30px;
+
+  top: -40px;
+  right: 0;
+}

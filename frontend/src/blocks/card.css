@@ -1,0 +1,145 @@
+.card {
+  max-width: 880px;
+  padding-top: 50px;
+  display: flex;
+  gap: 20px 17px;
+  flex-wrap: wrap;
+}
+
+.card__element {
+  display: flex;
+  gap: 20px 17px;
+  flex-wrap: wrap;
+  padding-left: 0px;
+}
+
+.card__content {
+  width: 282px;
+  height: 361px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card__photo-delete {
+  width: 18px;
+  height: 19.3px;
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  left: 251px;
+}
+
+.card__photo-delete:hover {
+  opacity: 60%;
+}
+
+.card__photo {
+  width: 100%;
+  height: 282px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.card__info {
+  margin: 0;
+  display: flex;
+  max-width: 246px;
+  justify-content: flex-start;
+  padding: 24px 15px 25px 21px;
+  gap: 10px;
+}
+
+.card__photo-name {
+  margin: 0;
+  max-width: 215px;
+  width: 100%;
+  font-family: "Inter-Black";
+  color: #000000;
+  font-size: 24px;
+  line-height: 29.05px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__photo-like {
+  cursor: pointer;
+  width: 21px;
+  height: 19px;
+  padding: 0;
+  align-self: center;
+}
+
+.card__photo-like:hover {
+  opacity: 50%;
+}
+
+.card__photo-like_active {
+  background-image: url(../images/Places/Like_Vector_Active.svg);
+}
+
+@media (min-width: 769px) and (max-width: 950px) {
+  .card__content {
+    width: 230.19px;
+    height: 308.24px;
+  }
+
+  .card__photo-delete {
+    left: 200px;
+  }
+
+  .card__photo {
+    width: 100%;
+    height: 230.19px;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 768px) {
+  .card {
+    gap: 20px;
+  }
+
+  .card__content {
+    width: 222.27px;
+    height: 287.32px;
+  }
+
+  .card__photo-delete {
+    left: 187px;
+  }
+
+  .card__photo {
+    width: 100%;
+    height: 222.27px;
+  }
+
+  .card__info {
+    max-width: 100%;
+    padding: 20px 17px 20px 23px;
+  }
+
+  .card__photo-name {
+    max-width: 256.8px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 500px) {
+  .card {
+    padding-top: 36px;
+  }
+
+  .card__content {
+    max-width: 100%;
+    height: 361px;
+  }
+
+  .card__info {
+    padding: 24px 17px 24px 23px;
+  }
+
+  .card__photo-name {
+    max-width: 256.8px;
+  }
+}

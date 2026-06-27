@@ -1,0 +1,145 @@
+.header {
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  max-width: 173px;
+}
+
+.header__nav_desktop {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.header__email {
+  font-family: "Inter", Arial, sans-serif;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.header__logout,
+.header__link {
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  color: #a9a9a9;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.header__logout:hover,
+.header__link:hover {
+  opacity: 0.6;
+}
+
+.header__burger {
+  display: none;
+}
+
+.header__nav_mobile {
+  display: none;
+}
+
+.header__nav_mobile-logout {
+  display: none;
+}
+
+.header__line {
+  max-width: 880px;
+  width: 100%;
+  margin: 40px auto 0;
+  border-bottom: 1px solid #545454;
+}
+
+@media (min-width: 501px) and (max-width: 880px) {
+  .header {
+    max-width: 580px;
+    padding-top: 28px;
+  }
+
+  .header__line {
+    max-width: 580px;
+    margin-top: 32px;
+  }
+
+  .header__logo {
+    width: 142px;
+    height: auto;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 500px) {
+  .header {
+    width: 282px;
+    margin: 28px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header__logo {
+    width: 126px;
+    height: auto;
+  }
+
+  /* Ocultar navegación escritorio */
+  .header__nav_desktop {
+    display: none;
+  }
+
+  /* Mostrar hamburguesa */
+  .header__burger {
+    display: flex;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .header__burger-line {
+    width: 24px;
+    height: 2px;
+    background: #fff;
+    margin: 3px 0;
+  }
+
+  .header__burger-close {
+    width: 20px;
+    height: 20px;
+  }
+
+  .header__nav_mobile {
+    display: none;
+  }
+
+  .header__nav_open {
+    width: 282px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0 20px;
+    border-bottom: 1px solid #545454;
+  }
+
+  .header__email {
+    margin-bottom: 18px;
+    display: block;
+  }
+
+  .header__line {
+    width: 282px;
+    margin: 28px auto 0;
+  }
+}
