@@ -25,6 +25,3 @@ router.patch("/me", updateProfileValidation, updateProfile);
 router.patch("/me/avatar", updateAvatarValidation, updateAvatar);
 
 module.exports = router;
-app.get("/", (req, res) => {
-  res.send("Express server is running correctly!");
-});
