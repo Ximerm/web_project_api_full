@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-const { JWT_SECRET = "super-secret-key" } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
+
+const secret = NODE_ENV === "production" ? JWT_SECRET : "super-secret-key";
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
@@ -16,7 +18,7 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, JWT_SECRET);
+    payload = jwt.verify(token, secret);
   } catch (err) {
     return res.status(401).send({
       message: "Authorization required",
