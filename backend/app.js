@@ -27,6 +27,13 @@ app.options("*", cors());
 
 app.use(requestLogger);
 
+// Ruta para probar que PM2 reinicia la aplicación
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("The server will crash now");
+  }, 0);
+});
+
 // Establecer puerto
 const { PORT = 3000 } = process.env;
 
