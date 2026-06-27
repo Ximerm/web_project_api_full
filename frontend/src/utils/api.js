@@ -75,6 +75,6 @@ class Api {
 }
 
 // Variable que se exporta para realizar la conexión
-const api = new Api("http://localhost:3000");
+const api = new Api("https://api.aroundxr.mooo.com");
 
 export default api;
