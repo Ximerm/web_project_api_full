@@ -52,11 +52,11 @@ app.use((req, res) => {
   });
 });
 
-// Error Logger
-app.use(errorLogger);
-
 // Celebrate
 app.use(errors());
+
+// Error Logger
+app.use(errorLogger);
 
 // Middleware de errores propio
 app.use(errorHandler);
