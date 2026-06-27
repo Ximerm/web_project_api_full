@@ -1,6 +1,7 @@
 const express = require("express");
 //Conectar a mongoose
 const mongoose = require("mongoose");
+const cors = require("cors");
 const { errors } = require("celebrate");
 
 const { createUser, login } = require("./controllers/users");
@@ -18,6 +19,9 @@ const { requestLogger, errorLogger } = require("./middlewares/logger");
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
+app.options("*", cors());
 
 app.use(requestLogger);
 
