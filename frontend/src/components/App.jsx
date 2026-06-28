@@ -181,13 +181,15 @@ function App() {
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        console.log("===== NEW CARD =====");
+        console.log("NEW CARD");
         console.log(newCard);
-        console.log("====================");
 
-        setCards((cards) =>
-          cards.map((currentCard) =>
-            currentCard._id === card._id ? newCard : currentCard,
+        console.log("LIKES");
+        console.log(newCard.likes);
+
+        setCards((prevCards) =>
+          prevCards.map((currentCard) =>
+            currentCard._id === newCard._id ? newCard : currentCard,
           ),
         );
       })
