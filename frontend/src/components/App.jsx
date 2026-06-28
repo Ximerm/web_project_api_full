@@ -190,16 +190,13 @@ function App() {
 
   //Eliminar tarjeta
   async function handleCardDelete(cardId) {
-    const selectedCardId = cardId;
-    api
-      .removeCard(selectedCardId)
-      .then(() => {
-        setCards((state) =>
-          state.filter((card) => card._id !== selectedCardId),
-        );
-        handleClosePopup();
-      })
-      .catch((error) => console.error(error));
+    try {
+      await api.removeCard(cardId);
+
+      setCards((cards) => cards.filter((card) => card._id !== cardId));
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   //Agregar Nueva tarjeta

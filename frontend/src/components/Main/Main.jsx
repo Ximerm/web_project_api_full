@@ -100,7 +100,6 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
       await handleCardDelete(cardToDelete._id);
 
       setCardToDelete(null);
-
       onClosePopup();
     } catch (error) {
       console.error("Error eliminando tarjeta:", error);

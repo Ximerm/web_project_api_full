@@ -54,7 +54,6 @@ class Api {
 
   // Método privado para realizar la conexión con el servidor
   _makeRequest(uri, method = "GET", params = {}) {
-    // Parámetros de configuración generales
     const config = {
       method,
       headers: {
@@ -62,14 +61,21 @@ class Api {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
+
     if (method !== "GET") {
       config.body = JSON.stringify(params);
     }
+
     return fetch(`${this._url}${uri}`, config).then((res) => {
-      if (res.ok) {
-        return res.json();
+      if (!res.ok) {
+        return Promise.reject(`Error: ${res.status}`);
       }
-      return Promise.reject(`Error: ${res.status}`);
+
+      if (res.status === 204) {
+        return;
+      }
+
+      return res.json();
     });
   }
 }
