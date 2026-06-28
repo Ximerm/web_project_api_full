@@ -56,15 +56,10 @@ function App() {
 
   //
   useEffect(() => {
-    console.log("loggedIn:", loggedIn);
-
     if (!loggedIn) return;
 
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, cardsData]) => {
-        console.log("Usuario:", userData);
-        console.log("Cards:", cardsData);
-
         setCurrentUser(userData);
         setCards(cardsData);
       })
@@ -147,46 +142,35 @@ function App() {
 
   //Cambiar información de perfil
   const handleUpdateUser = (data) => {
-    (async () => {
-      api
-        .updateUser(data.name, data.about)
-        .then((newData) => {
-          setCurrentUser(newData);
-          handleClosePopup();
-        })
-        .catch((error) => console.error(error));
-    })();
+    api
+      .updateUser(data.name, data.about)
+      .then((newData) => {
+        setCurrentUser(newData);
+        handleClosePopup();
+      })
+      .catch(console.error);
   };
 
   //Cambiar Avatar
   const handleUpdateAvatar = (data) => {
-    (async () => {
-      api
-        .updateUserAvatar(data.avatar)
-        .then((updatedUser) => {
-          setCurrentUser(updatedUser);
-          handleClosePopup();
-        })
-        .catch((error) => console.error(error));
-    })();
+    api
+      .updateUserAvatar(data.avatar)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        handleClosePopup();
+      })
+      .catch(console.error);
   };
 
   // Agrega el soporte de "likes" y "dislikes"
-  async function handleCardLike(card) {
+  function handleCardLike(card) {
     // Verifica si el usuario actual ya dio like
     const isLiked = card.likes.some(
       (like) => (like._id || like) === currentUser._id,
     );
-
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
-        console.log("NEW CARD");
-        console.log(newCard);
-
-        console.log("LIKES");
-        console.log(newCard.likes);
-
         setCards((prevCards) =>
           prevCards.map((currentCard) =>
             currentCard._id === newCard._id ? newCard : currentCard,
@@ -201,10 +185,9 @@ function App() {
     try {
       await api.removeCard(cardId);
 
-      setCards((cards) => cards.filter((card) => card._id !== cardId));
+      setCards((prevCards) => prevCards.filter((card) => card._id !== cardId));
     } catch (error) {
       console.error(error);
-      throw error;
     }
   }
 
@@ -213,7 +196,7 @@ function App() {
     api
       .addNewCard(name, link)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards((prevCards) => [newCard, ...prevCards]);
         handleClosePopup();
       })
       .catch((error) => console.error(error));

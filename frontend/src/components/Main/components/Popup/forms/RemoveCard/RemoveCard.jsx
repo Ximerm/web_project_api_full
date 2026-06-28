@@ -3,9 +3,6 @@ import React from "react";
 export default function RemoveCard({ onConfirm }) {
   function handleSubmit(event) {
     event.preventDefault();
-
-    alert("RemoveCard");
-
     onConfirm();
   }
 

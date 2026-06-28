@@ -32,12 +32,8 @@ class Api {
     return this._makeRequest(`/cards/${cardId}/likes`, "DELETE");
   }
 
-  changeLikeCardStatus(cardId, like) {
-    if (like) {
-      return this.addLike(cardId);
-    } else {
-      return this.removeLike(cardId);
-    }
+  changeLikeCardStatus(cardId, isLiked) {
+    return isLiked ? this.removeLike(cardId) : this.addLike(cardId);
   }
 
   // 6. Eliminar tarjeta

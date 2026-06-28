@@ -29,17 +29,11 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
   // Variable para tarjeta seleccionada para eliminar
   const [cardToDelete, setCardToDelete] = useState(null);
 
-  // Estado para manejar el estado de eliminación
-  const [isDeleting, setIsDeleting] = useState(false);
-
   //Creación de variables que se pasarán como props en Popup.jsx
   const newCardPopup = {
     title: "Nuevo lugar",
     children: (
-      <NewCard
-        title={"Nuevo lugar"}
-        onAddPlaceSubmit={(event) => handleAddPlaceSubmit(event)}
-      />
+      <NewCard title={"Nuevo lugar"} onAddPlaceSubmit={handleAddPlaceSubmit} />
     ),
   };
 
@@ -49,9 +43,7 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
       <EditProfile
         title={"Editar Perfil"}
         // Se coloca dos veces la función para que cuando renderice espere a que exista
-        handleUpdateUser={(data) => {
-          handleUpdateUser(data);
-        }}
+        handleUpdateUser={handleUpdateUser}
       />
     ),
   };
@@ -62,21 +54,14 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
       <EditAvatar
         title={"Cambiar foto de perfil"}
         // Se coloca dos veces la función para que cuando renderice espere a que exista
-        onUpdateAvatar={(data) => {
-          handleUpdateAvatar(data);
-        }}
+        onUpdateAvatar={handleUpdateAvatar}
       />
     ),
   };
 
   const removeCardPopup = {
     title: "Eliminar tarjeta",
-    children: (
-      <RemoveCard
-        onConfirm={handleDeleteConfirmation}
-        isDeleting={isDeleting}
-      />
-    ),
+    children: <RemoveCard onConfirm={handleDeleteConfirmation} />,
   };
 
   // Función para cerrar el popup de imagen grande
@@ -94,17 +79,13 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
   async function handleDeleteConfirmation() {
     if (!cardToDelete) return;
 
-    setIsDeleting(true);
-
     try {
       await handleCardDelete(cardToDelete._id);
 
       setCardToDelete(null);
       onClosePopup();
     } catch (error) {
-      console.error("Error eliminando tarjeta:", error);
-    } finally {
-      setIsDeleting(false);
+      console.error(error);
     }
   }
 
@@ -162,9 +143,7 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
             <Card
               key={card._id}
               card={card}
-              handleOpenBigImage={() => {
-                setSelectedCard(card);
-              }}
+              handleOpenBigImage={() => setSelectedCard(card)}
               onCardLike={() => handleCardLike(card)}
               onCardDelete={() => handleOpenRemoveCardPopup(card)}
             />
