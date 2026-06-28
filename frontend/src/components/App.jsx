@@ -196,6 +196,7 @@ function App() {
       setCards((cards) => cards.filter((card) => card._id !== cardId));
     } catch (error) {
       console.error(error);
+      throw error;
     }
   }
 

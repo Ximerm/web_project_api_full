@@ -3,8 +3,12 @@ import React from "react";
 export default function RemoveCard({ onConfirm }) {
   function handleSubmit(event) {
     event.preventDefault();
+
+    console.log("ELIMINAR");
+
     onConfirm();
   }
+
   return (
     <form
       onSubmit={handleSubmit}
