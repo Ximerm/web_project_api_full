@@ -14,9 +14,10 @@ export default function Card(props) {
   const imageComponent = { name, link };
 
   // Verificar si el usuario actual dio like
-  const isLiked = likes.some(
-    (like) => String(like._id || like) === String(currentUser._id),
-  );
+  const isLiked = card.likes.includes(currentUser._id);
+  console.log("CURRENT USER ID:", currentUser._id);
+  console.log("LIKES:", likes);
+  console.log("IS LIKED:", isLiked);
 
   // Controlador para like/dislike
   function handleLikeClick() {
