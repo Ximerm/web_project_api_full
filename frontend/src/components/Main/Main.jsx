@@ -93,21 +93,19 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
   // Función asincrónica para espera correcta de eliminación
   async function handleDeleteConfirmation() {
     if (!cardToDelete) return;
-    setIsDeleting(true); // Activar estado de eliminación
+
+    setIsDeleting(true);
+
     try {
-      // Actualizar el estado inmediatamente
-      const updatedCards = cards.filter(
-        (card) => card._id !== cardToDelete._id,
-      );
+      await handleCardDelete(cardToDelete._id);
+
       setCardToDelete(null);
+
       onClosePopup();
-      await handleCardDelete(cardToDelete._id); // Llamada a la API
-      // Actualizar el estado de las tarjetas
-      setCards(updatedCards);
     } catch (error) {
       console.error("Error eliminando tarjeta:", error);
     } finally {
-      setIsDeleting(false); // Desactivar estado de eliminación
+      setIsDeleting(false);
     }
   }
 

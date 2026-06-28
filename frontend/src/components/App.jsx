@@ -148,7 +148,7 @@ function App() {
   //Cambiar información de perfil
   const handleUpdateUser = (data) => {
     (async () => {
-      await api
+      api
         .updateUser(data.name, data.about)
         .then((newData) => {
           setCurrentUser(newData);
@@ -161,7 +161,7 @@ function App() {
   //Cambiar Avatar
   const handleUpdateAvatar = (data) => {
     (async () => {
-      await api
+      api
         .updateUserAvatar(data.avatar)
         .then((updatedUser) => {
           setCurrentUser(updatedUser);
@@ -171,16 +171,16 @@ function App() {
     })();
   };
 
-  //Agrega el soporte de "likes" y "dislikes"
+  // Agrega el soporte de "likes" y "dislikes"
   async function handleCardLike(card) {
-    // Verifica una vez más si a esta tarjeta ya les has dado like
-    const isLiked = card.isLiked;
+    // Verifica si el usuario actual ya dio like
+    const isLiked = card.likes.some((id) => id === currentUser._id);
 
-    await api
+    api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) =>
-          state.map((currentCard) =>
+        setCards((cards) =>
+          cards.map((currentCard) =>
             currentCard._id === card._id ? newCard : currentCard,
           ),
         );
@@ -191,7 +191,7 @@ function App() {
   //Eliminar tarjeta
   async function handleCardDelete(cardId) {
     const selectedCardId = cardId;
-    await api
+    api
       .removeCard(selectedCardId)
       .then(() => {
         setCards((state) =>
