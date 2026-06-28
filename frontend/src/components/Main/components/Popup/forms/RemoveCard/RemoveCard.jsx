@@ -4,7 +4,7 @@ export default function RemoveCard({ onConfirm }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    console.log("ELIMINAR");
+    alert("RemoveCard");
 
     onConfirm();
   }

@@ -174,11 +174,17 @@ function App() {
   // Agrega el soporte de "likes" y "dislikes"
   async function handleCardLike(card) {
     // Verifica si el usuario actual ya dio like
-    const isLiked = card.likes.some((id) => id === currentUser._id);
+    const isLiked = card.likes.some(
+      (like) => (like._id || like) === currentUser._id,
+    );
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
+        console.log("===== NEW CARD =====");
+        console.log(newCard);
+        console.log("====================");
+
         setCards((cards) =>
           cards.map((currentCard) =>
             currentCard._id === card._id ? newCard : currentCard,
