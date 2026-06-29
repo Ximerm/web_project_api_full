@@ -79,11 +79,11 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
   async function handleDeleteConfirmation() {
     if (!cardToDelete) return;
 
+    onClosePopup();
+
     try {
       await handleCardDelete(cardToDelete._id);
-
       setCardToDelete(null);
-      onClosePopup();
     } catch (error) {
       console.error(error);
     }
