@@ -26,9 +26,6 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
   //Variable para que seleccione ImagePopup con la card seleccionada
   const [selectedCard, setSelectedCard] = useState(null);
 
-  // Variable para tarjeta seleccionada para eliminar
-  const [cardToDelete, setCardToDelete] = useState(null);
-
   //Creación de variables que se pasarán como props en Popup.jsx
   const newCardPopup = {
     title: "Nuevo lugar",
@@ -37,6 +34,7 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
     ),
   };
 
+  //Editar perfil
   const editProfilePopup = {
     title: "Editar perfil",
     children: (
@@ -48,6 +46,7 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
     ),
   };
 
+  //Editar Avatar
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
     children: (
@@ -59,10 +58,11 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
     ),
   };
 
-  const removeCardPopup = {
+  //Eliminar card
+  const removeCardPopup = (card) => ({
     title: "Eliminar tarjeta",
-    children: <RemoveCard onConfirm={handleDeleteConfirmation} />,
-  };
+    children: <RemoveCard onConfirm={() => handleDeleteConfirmation(card)} />,
+  });
 
   // Función para cerrar el popup de imagen grande
   const handleCloseImagePopup = () => {
@@ -71,19 +71,14 @@ export default function Main({ onOpenPopup, onClosePopup, popup, cards }) {
 
   // Abrir el popup de confirmación de eliminar tarjeta
   const handleOpenRemoveCardPopup = (card) => {
-    setCardToDelete(card);
-    onOpenPopup(removeCardPopup);
+    onOpenPopup(removeCardPopup(card));
   };
 
   // Función asincrónica para espera correcta de eliminación
-  async function handleDeleteConfirmation() {
-    if (!cardToDelete) return;
-
-    onClosePopup();
-
+  async function handleDeleteConfirmation(card) {
     try {
-      await handleCardDelete(cardToDelete._id);
-      setCardToDelete(null);
+      await handleCardDelete(card._id);
+      onClosePopup();
     } catch (error) {
       console.error(error);
     }

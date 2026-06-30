@@ -4,16 +4,7 @@ const Card = require("../models/card");
 const getCards = (req, res, next) => {
   Card.find({})
     .sort({ createdAt: -1 })
-    .then((cards) => {
-      console.log(
-        cards.map((card) => ({
-          name: card.name,
-          createdAt: card.createdAt,
-        })),
-      );
-
-      res.send(cards);
-    })
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
