@@ -3,7 +3,17 @@ const Card = require("../models/card");
 // GET - Devuelve todas las tarjetas
 const getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send(cards))
+    .sort({ createdAt: -1 })
+    .then((cards) => {
+      console.log(
+        cards.map((card) => ({
+          name: card.name,
+          createdAt: card.createdAt,
+        })),
+      );
+
+      res.send(cards);
+    })
     .catch(next);
 };
 

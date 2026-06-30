@@ -7,11 +7,14 @@ import cardLike from "../../../../images/Places/Like_Vector.svg";
 export default function Card(props) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  const { name, link, likes } = props.card;
+  const { name, link, likes, owner } = props.card;
 
   const { handleOpenBigImage, onCardLike, onCardDelete } = props;
 
   const imageComponent = { name, link };
+
+  // Verificar si el usuario es el propietario de la tarjeta
+  const isOwn = owner === currentUser._id;
 
   // Verificar si el usuario actual dio like
   const isLiked = likes.some((like) => (like._id || like) === currentUser._id);
@@ -28,12 +31,14 @@ export default function Card(props) {
 
   return (
     <li className="card__content">
-      <img
-        className="card__photo-delete"
-        src={cardDelete}
-        alt="Ícono eliminar"
-        onClick={handleDeleteClick}
-      />
+      {isOwn && (
+        <img
+          className="card__photo-delete"
+          src={cardDelete}
+          alt="Ícono eliminar"
+          onClick={handleDeleteClick}
+        />
+      )}
 
       <img
         className="card__photo"

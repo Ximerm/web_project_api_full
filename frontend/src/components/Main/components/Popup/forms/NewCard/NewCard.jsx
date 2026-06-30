@@ -1,39 +1,17 @@
-import { useEffect, useContext, useState } from "react";
-import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContext";
+import { useEffect, useRef, useState } from "react";
 import FormValidator from "../../../../../../utils/FormValidator";
 
 export default function NewCard({ title, onAddPlaceSubmit }) {
-  // Obtiene el objeto currentUser
-  const userContext = useContext(CurrentUserContext);
-  const { currentUser } = userContext;
-
-  // Agrega la variable de estado para name
-  const [nameCard, setnameCard] = useState("");
-
-  // Agrega la variable de estado para link
+  const [nameCard, setNameCard] = useState("");
   const [link, setLink] = useState("");
 
-  // Actualiza name cuando cambie la entrada
-  const handleTitleChange = (event) => {
-    setnameCard(event.target.value);
-  };
+  // Referencia al formulario
+  const formRef = useRef(null);
 
-  // Actualiza link cuando cambie la entrada
-  const handlelinkChange = (event) => {
-    setLink(event.target.value);
-  };
-
-  // Envío de formulario
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Actualiza la información de la tarjeta
-    onAddPlaceSubmit({ name: nameCard, link: link });
-  };
-
-  //Validar formulario
   useEffect(() => {
-    const newCardForm = document.querySelector("#form-addCard");
-    const formValidator = new FormValidator(newCardForm, {
+    if (!formRef.current) return;
+
+    const formValidator = new FormValidator(formRef.current, {
       formSelector: ".popup__form",
       inputSelector: ".popup__form-input",
       submitButtonSelector: ".popup__form-submit",
@@ -41,17 +19,40 @@ export default function NewCard({ title, onAddPlaceSubmit }) {
       inputErrorClass: "popup__form-input_type_error",
       errorClass: "input-error",
     });
+
     formValidator.enableValidation();
   }, []);
 
+  const handleTitleChange = (e) => {
+    setNameCard(e.target.value);
+  };
+
+  const handleLinkChange = (e) => {
+    setLink(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    onAddPlaceSubmit({
+      name: nameCard,
+      link,
+    });
+
+    setNameCard("");
+    setLink("");
+  };
+
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
       className="popup__form"
       name="card-form"
       id="form-addCard"
     >
       {title && <h3 className="popup__form-title">{title}</h3>}
+
       <input
         className="popup__form-input"
         type="text"
@@ -62,9 +63,7 @@ export default function NewCard({ title, onAddPlaceSubmit }) {
         maxLength="30"
         autoComplete="off"
         required
-        // Vincula name con la entrada
         value={nameCard}
-        // Agrega el controlador onChange
         onChange={handleTitleChange}
       />
       <span className="input-error" id="input-title-error"></span>
@@ -77,10 +76,8 @@ export default function NewCard({ title, onAddPlaceSubmit }) {
         placeholder="URL de la imagen"
         autoComplete="off"
         required
-        // Vincula name con la entrada
         value={link}
-        // Agrega el controlador onChange
-        onChange={handlelinkChange}
+        onChange={handleLinkChange}
       />
       <span className="input-error" id="input-link-error"></span>
 
