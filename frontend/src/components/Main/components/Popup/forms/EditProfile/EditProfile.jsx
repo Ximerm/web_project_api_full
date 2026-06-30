@@ -1,17 +1,23 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContext";
 import FormValidator from "../../../../../../utils/FormValidator";
 
 export default function EditProfile({ title, handleUpdateUser }) {
   // Obtiene el objeto currentUser
-  const userContext = useContext(CurrentUserContext);
-  const { currentUser } = userContext;
+  const { currentUser } = useContext(CurrentUserContext);
 
-  // Agrega la variable de estado para name
+  // Referencia al formulario
+  const formRef = useRef(null);
+
+  // Variables de estado
   const [name, setName] = useState(currentUser.name);
-
-  // Agrega la variable de estado para about
   const [description, setDescription] = useState(currentUser.about);
+
+  // Actualiza el estado cuando cambia el usuario
+  useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser]);
 
   // Actualiza name cuando cambie la entrada
   const handleNameChange = (event) => {
@@ -26,14 +32,14 @@ export default function EditProfile({ title, handleUpdateUser }) {
   // Envío de formulario
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Actualiza la información del usuario
     handleUpdateUser({ name, about: description });
   };
 
-  //Validar formulario
+  // Validar formulario
   useEffect(() => {
-    const profileForm = document.querySelector(".popup__form");
-    const formValidator = new FormValidator(profileForm, {
+    if (!formRef.current) return;
+
+    const formValidator = new FormValidator(formRef.current, {
       formSelector: ".popup__form",
       inputSelector: ".popup__form-input",
       submitButtonSelector: ".popup__form-submit",
@@ -41,17 +47,20 @@ export default function EditProfile({ title, handleUpdateUser }) {
       inputErrorClass: "popup__form-input_type_error",
       errorClass: "input-error",
     });
+
     formValidator.enableValidation();
   }, []);
 
   return (
     <form
+      ref={formRef}
       className="popup__form"
       id="form-profile"
       noValidate
       onSubmit={handleSubmit}
     >
       {title && <h3 className="popup__form-title">{title}</h3>}
+
       <input
         className="popup__form-input"
         type="text"
@@ -62,9 +71,7 @@ export default function EditProfile({ title, handleUpdateUser }) {
         maxLength="40"
         autoComplete="off"
         required
-        // Vincula name con la entrada
         value={name}
-        // Agrega el controlador onChange
         onChange={handleNameChange}
       />
       <span className="input-error" id="input-name-error"></span>
@@ -79,9 +86,7 @@ export default function EditProfile({ title, handleUpdateUser }) {
         maxLength="200"
         autoComplete="off"
         required
-        // Vincula description con la entrada
         value={description}
-        // Agrega el controlador onChange
         onChange={handleDescriptionChange}
       />
       <span className="input-error" id="input-about-error"></span>

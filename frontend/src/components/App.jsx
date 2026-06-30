@@ -182,13 +182,9 @@ function App() {
 
   //Eliminar tarjeta
   async function handleCardDelete(cardId) {
-    try {
-      await api.removeCard(cardId);
+    await api.removeCard(cardId);
 
-      setCards((prevCards) => prevCards.filter((card) => card._id !== cardId));
-    } catch (error) {
-      console.error(error);
-    }
+    setCards((prevCards) => prevCards.filter((card) => card._id !== cardId));
   }
 
   //Agregar Nueva tarjeta
